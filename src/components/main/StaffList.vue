@@ -4,6 +4,7 @@
       List
     </h1>
     <div class="d-inline-block">
+      <!-- v-btn-toggle -->
       <v-btn class="d-inline-block bg-grey rounded-xl pa-2 ma-2">
         Button 1
       </v-btn>
@@ -20,6 +21,8 @@
         Button 5
       </v-btn >
     </div>
+    <StaffTag class="ma-2" />
+    <StaffTag class="ma-2" />
     <StaffTag class="ma-2" />
     <StaffTag class="ma-2" />
     <div class="ma-2">
