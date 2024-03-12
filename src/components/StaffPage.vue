@@ -10,7 +10,9 @@
       </v-col>
       <v-col>
         <div class="bg-white ma-8 pa-4">
-          <NewUser />
+          <NewStaff />
+          <v-divider thickness="4" />
+          <FilterSettings />
         </div>
       </v-col>
     </v-row>
