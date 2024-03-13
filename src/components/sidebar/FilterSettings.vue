@@ -7,7 +7,7 @@
       <v-container>
         <v-row>
           <v-col>
-            <p class="mb-2">Гражданство</p>
+            <p class="mb-2 font-weight-medium">Гражданство</p>
             <v-select
               variant="solo"
               density="comfortable"
@@ -22,7 +22,7 @@
             />
           </v-col>
           <v-col>
-            <p class="mb-2">Пол</p>
+            <p class="mb-2 font-weight-medium">Пол</p>
             <v-select
               variant="solo"
               density="comfortable"
@@ -39,7 +39,7 @@
         </v-row>
         <v-row class="mt-2">
           <v-col>
-            <p class="mb-2">Должность</p>
+            <p class="mb-2 font-weight-medium">Должность</p>
             <v-select
               variant="solo"
               density="comfortable"

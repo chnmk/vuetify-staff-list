@@ -110,6 +110,7 @@ const props = defineProps([
 }
 
 .figma-all-tags {
+  font-weight: 500;
   background-color: #B0BCC7;
 }
 

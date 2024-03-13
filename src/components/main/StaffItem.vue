@@ -1,10 +1,10 @@
 <template>
   <div class="figma-item mb-4 rounded">
     <div class="d-inline-block mt-5 mx-2">
-      <h3 class="d-inline figma-name mx-4">
+      <h3 class="d-inline figma-name ml-4 mr-2">
         {{ full_name }}
       </h3>
-      <span class="bg-white figma-inn text-grey mx-3 px-2 py-1 rounded">
+      <span class="bg-white figma-inn text-grey mx-3 pl-1 pr-2 py-1 rounded">
         ИНН {{ inn }}
       </span>
       <span class="figma-tag ml-2 pa-1 rounded">
@@ -91,21 +91,25 @@ const props = defineProps([
   background-color: #E52E2E;
   color: white;
   font-size: 14px;
+  font-weight: 500;
 }
 .figma-problem-tag {
   background-color: #E2BD06;
   color: white;
   font-size: 14px;
+  font-weight: 500;
 }
 .figma-note-tag {
   background-color: #00B6ED;
   color: white;
   font-size: 14px;
+  font-weight: 500;
 }
 .figma-complete-tag {
   background-color: #00AE5B;
   color: white;
   font-size: 14px;
+  font-weight: 500;
 }
 
 .info-line {
