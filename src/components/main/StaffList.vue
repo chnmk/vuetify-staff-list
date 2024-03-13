@@ -23,7 +23,7 @@
     </div>
     <StaffTag
       class="ma-2"
-      v-for="staff in staff_list"
+      v-for="staff in display_list"
       :full_name="staff.full_name"
       :inn="staff.inn"
       :type_contract_slug="staff.type_contract.slug"
@@ -37,8 +37,8 @@
       :status_description="staff.status.description"
       :status_color="staff.status.tag.color"
     />
-    <div class="ma-2">
-      <v-btn>
+    <div class="ma-2" v-if="staff_list.length != display_list.length">
+      <v-btn @click="$emit('showMoreTags')">
         Show More
       </v-btn>
     </div>
@@ -48,5 +48,6 @@
 <script setup>
 import StaffTag from './StaffTag.vue';
 
-const props = defineProps(['staff_list'])
+const props = defineProps(['staff_list', 'display_list', 'settings'])
+
 </script>
