@@ -403,10 +403,17 @@ function displayList(searchText) {
     filtered_list.value = filtered_list.value.filter((staff) => staff.full_name.includes(searchText))
   }
 
-  console.log("td: " + checkboxTD.value)
-  console.log("gph: " + checkboxGPH.value)
-  console.log("smz: " + checkboxSMZ.value)
-  console.log("Candidate: " + checkboxCandidate.value)
+  if (selectedCountry.value !== "Все страны") {
+    filtered_list.value = filtered_list.value.filter((staff) => staff.country.title === selectedCountry.value )
+  }
+
+  if (selectedGender.value !== "Без разницы") {
+    filtered_list.value = filtered_list.value.filter((staff) => staff.gender.title === selectedGender.value )
+  }
+
+  if (selectedPosition.value !== "Все должности") {
+    filtered_list.value = filtered_list.value.filter((staff) => staff.position.name === selectedPosition.value )
+  }
 
   if (checkboxTD.value || checkboxGPH.value || checkboxSMZ.value || checkboxCandidate.value) {
     if (!checkboxTD.value) {
