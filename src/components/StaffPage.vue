@@ -1,7 +1,7 @@
 <template>
   <v-container :fluid="true" class="figma-bg-grey pa-4">
     <v-row no-gutters class="ma-2">
-      <v-col cols="8">
+      <v-col :cols="colsMain">
         <div class="bg-white ma-3">
           <StaffSearch
             @searchText="displayList($event)"
@@ -24,7 +24,7 @@
             />
         </div>
       </v-col>
-      <v-col cols="4">
+      <v-col :cols="colsSidebar">
         <div class="bg-white ma-3 rounded-lg">
           <NewStaff />
           <v-divider thickness="2" />
@@ -55,6 +55,52 @@ import StaffSearch from './main/StaffSearch.vue';
 import StaffList from './main/StaffList.vue';
 import NewStaff from './sidebar/NewStaff.vue';
 import FilterSettings from './sidebar/FilterSettings.vue';
+import { useDisplay } from "vuetify";
+import { computed } from "vue";
+
+// =================
+// Vuetify settings:
+
+const { name } = useDisplay();
+
+const colsSidebar = computed(() => {
+  switch (name.value) {
+    case "xs":
+      return 12;
+    case "sm":
+      return 12;
+    case "md":
+      return 12;
+    case "lg":
+      return 5;
+    case "xl":
+      return 4;
+    case "xxl":
+      return 4;
+  }
+  return undefined;
+});
+
+const colsMain = computed(() => {
+  switch (name.value) {
+    case "xs":
+      return 12;
+    case "sm":
+      return 12;
+    case "md":
+      return 12;
+    case "lg":
+      return 7;
+    case "xl":
+      return 8;
+    case "xxl":
+      return 8;
+  }
+  return undefined;
+});
+
+// =================
+// Setup data:
 
 const props = defineProps(['staff_list', 'filtered_list'])
 
@@ -362,6 +408,7 @@ let staff_list = [
 ]
 
 // =================
+// App logic:
 
 let numberOfDisplayedItems = 4
 let numberOfFilteredItems = staff_list.length
