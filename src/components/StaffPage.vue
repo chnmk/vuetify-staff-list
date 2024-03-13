@@ -59,7 +59,7 @@ import { useDisplay } from "vuetify";
 import { computed } from "vue";
 
 // =================
-// Vuetify settings:
+// Vuetify adaptivity:
 
 const { name } = useDisplay();
 
@@ -102,10 +102,8 @@ const colsMain = computed(() => {
 // =================
 // Setup data:
 
-const props = defineProps(['staff_list', 'filtered_list'])
-
 const staff_tag = [
-  // id: 1 стоит раньше id: 0, т.к. в макете разный порядок в списке сотрудников и в тэгах над списком
+  // id: 1 раньше id: 0, т.к. в макете разный порядок в списке сотрудников и в тэгах над списком
   {
     id: 1,
     title: "Проблемные",
@@ -387,11 +385,11 @@ let staff_list = [
   },
   {
     full_name: "Акапулько Снежана Олеговна", // valid
-    inn: "1234567890", // valid... Should be of certain length?
+    inn: "1234567890", // valid
     address: "Москва", // valid
     date_birth: "01.01.2002",
     age: 24,
-    type_contract: type_contract[3], // filter by slug or whatever... valid
+    type_contract: type_contract[3], // valid
     type_contract_id: type_contract[3].id, // valid
     gender: gender[1], // valid
     gender_id: gender[1].id, // valid
@@ -399,10 +397,10 @@ let staff_list = [
     country_id: country[0].id, // valid
     position: position[1], // valid
     position_id: position[1].id, // valid
-    status: { // valid "Статус сотрудника - выводить необходимо description сортировать по tag_id"
+    status: { // valid
       tag_id : staff_tag[3].id,
       tag: staff_tag[3],
-      description: "Прошел все процедуры" // Истекает патент, Пропустил медосмотр, Прошел все процедуры
+      description: "Прошел все процедуры"
     }
   },
 ]
@@ -413,6 +411,7 @@ let staff_list = [
 // Sort staff array on setup:
 staff_list.sort((a,b) => a.status.tag_id - b.status.tag_id)
 
+// Set variables for staff list filtration:
 let numberOfDisplayedItems = 4
 let numberOfFilteredItems = staff_list.length
 
@@ -437,6 +436,8 @@ function displayList(searchText) {
   filtered_list.value = staff_list
 
   // Apply filters if needed:
+
+  // Tag filters:
   if (tagCritical.value || tagProblem.value || tagNote.value || tagComplete.value) {
     if (!tagCritical.value) {
       filtered_list.value = filtered_list.value.filter((staff) => staff.status.tag_id !== 0)
@@ -452,6 +453,7 @@ function displayList(searchText) {
     }
   }
 
+  // Name search:
   if (searchText) {
     filtered_list.value = filtered_list.value.filter((staff) => staff.full_name.includes(searchText))
   }
@@ -468,6 +470,7 @@ function displayList(searchText) {
     filtered_list.value = filtered_list.value.filter((staff) => staff.position.name === selectedPosition.value )
   }
 
+  // Checkbox filters:
   if (checkboxTD.value || checkboxGPH.value || checkboxSMZ.value || checkboxCandidate.value) {
     if (!checkboxTD.value) {
       filtered_list.value = filtered_list.value.filter((staff) => staff.type_contract_id !== 0)
@@ -483,6 +486,7 @@ function displayList(searchText) {
     }
   }
 
+  // Create final filtered list:
   numberOfFilteredItems = filtered_list.value.length
   filtered_list.value = filtered_list.value.slice(0, numberOfDisplayedItems)
 }
@@ -498,7 +502,6 @@ function switchTag(input) {
   } else if (input === "complete") {
     tagComplete.value = !tagComplete.value
   }
-
 
   // Apply filters:
   displayList()
@@ -523,6 +526,7 @@ function showMoreItems() {
 }
 
 function resetFilter() {
+  // Reset values:
   selectedCountry.value = "Все страны"
   selectedGender.value = "Без разницы"
   selectedPosition.value = "Все должности"

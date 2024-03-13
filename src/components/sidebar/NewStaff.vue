@@ -9,10 +9,6 @@
   </div>
 </template>
 
-<script setup>
-// 13/03/24 12:16
-</script>
-
 <style scoped>
 .figma-light-blue {
   background-color: #00B6ED;

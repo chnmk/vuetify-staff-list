@@ -8,5 +8,4 @@
 
 <script setup>
 import StaffPage from './components/StaffPage.vue';
-
 </script>
