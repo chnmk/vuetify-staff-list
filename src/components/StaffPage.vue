@@ -9,7 +9,6 @@
           <v-divider thickness="4" />
           <StaffList
             :staff_list="staff_list"
-            :sliced_list="sliced_list"
             :filtered_list="filtered_list"
             @showMoreItems="showMoreItems()"
             @tagEntireList="switchAllTags()"
@@ -52,7 +51,7 @@ import StaffList from './main/StaffList.vue';
 import NewStaff from './sidebar/NewStaff.vue';
 import FilterSettings from './sidebar/FilterSettings.vue';
 
-const props = defineProps(['staff_list', 'sliced_list'])
+const props = defineProps(['staff_list', 'filtered_list'])
 
 const staff_tag = [
   // id: 1 стоит раньше id: 0, т.к. в макете разный порядок в списке сотрудников и в тэгах над списком
@@ -359,10 +358,9 @@ let staff_list = [
 
 // =================
 
-const sliced_list = ref(staff_list.slice(0, 4))
-let filtered_list = sliced_list
-
 let numberOfDisplayedItems = 4
+
+const filtered_list = ref(staff_list.slice(0, numberOfDisplayedItems))
 
 const tagCritical = ref(false)
 const tagProblem = ref(false)
@@ -380,8 +378,9 @@ const checkboxCandidate = ref(false)
 
 function displayList(searchText) {
   // Reset display
-  filtered_list = ref(staff_list)
+  filtered_list.value = staff_list
 
+  // Apply filters if needed:
   if (tagCritical.value || tagProblem.value || tagNote.value || tagComplete.value) {
     if (!tagCritical.value) {
       filtered_list.value = filtered_list.value.filter((staff) => staff.status.tag_id !== 0)
@@ -396,8 +395,6 @@ function displayList(searchText) {
       filtered_list.value = filtered_list.value.filter((staff) => staff.status.tag_id !== 3)
     }
   }
-
-  // FIXME: reactivity doesn't work instantly with functions below:
 
   if (searchText) {
     filtered_list.value = filtered_list.value.filter((staff) => staff.full_name.includes(searchText))
@@ -460,8 +457,9 @@ function switchAllTags() {
 
 function showMoreItems() {
   numberOfDisplayedItems += 4
-  sliced_list.value = staff_list.slice(0, numberOfDisplayedItems)
-}
+
+  // Apply filters:
+  displayList()}
 
 function resetFilter() {
   selectedCountry.value = "Все страны"
@@ -473,18 +471,8 @@ function resetFilter() {
   checkboxSMZ.value = false
   checkboxCandidate.value = false
 
+  // Apply filters:
   displayList()
 }
 
-/*
-function searchText($event) {
-  if ($event.length === 0) {
-    // Reset filter:
-    sliced_list.value = staff_list.slice(0, numberOfDisplayedItems)
-  } else {
-    // Add filter:
-    displayList($event)
-  }
-}
-*/
 </script>
