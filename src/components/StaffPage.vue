@@ -4,19 +4,19 @@
       <v-col>
         <div class="bg-white ma-8 pa-4">
           <StaffSearch
-            @searchText="searchText($event)"
+            @searchText="displayList($event)"
           />
           <v-divider thickness="4" />
           <StaffList
             :staff_list="staff_list"
             :sliced_list="sliced_list"
             :filtered_list="filtered_list"
-            @showMoreTags="showMoreTags()"
-            @tagEntireList="switchTagEntireList()"
-            @tagProblem="tagProblem = !tagProblem"
-            @tagCritical="switchTagCritical()"
-            @tagNote="tagNote = !tagNote"
-            @tagComplete="tagComplete = !tagComplete"
+            @showMoreItems="showMoreItems()"
+            @tagEntireList="switchAllTags()"
+            @tagProblem="switchTag('problem')"
+            @tagCritical="switchTag('critical')"
+            @tagNote="switchTag('note')"
+            @tagComplete="switchTag('complete')"
             :tagProblem="tagProblem"
             :tagCritical="tagCritical"
             :tagNote="tagNote"
@@ -28,7 +28,17 @@
         <div class="bg-white ma-8 pa-4">
           <NewStaff />
           <v-divider thickness="4" />
-          <FilterSettings />
+          <FilterSettings
+            @filterCountry="selectedCountry = $event"
+            @filterGender="selectedGender = $event"
+            @filterPosition="selectedPosition = $event"
+            @checkboxTD="checkboxTD = !checkboxTD"
+            @checkboxGPH="checkboxGPH = !checkboxGPH"
+            @checkboxSMZ="checkboxSMZ = !checkboxSMZ"
+            @checkboxCandidate="checkboxCandidate = !checkboxCandidate"
+            @applyFilter="displayList()"
+            @resetFilter="resetFilter()"
+          />
         </div>
       </v-col>
     </v-row>
@@ -350,47 +360,124 @@ let staff_list = [
 // =================
 
 const sliced_list = ref(staff_list.slice(0, 4))
-const filtered_list = sliced_list
+let filtered_list = sliced_list
 
-let numberOfDisplayedTags = 4
+let numberOfDisplayedItems = 4
 
 const tagCritical = ref(false)
 const tagProblem = ref(false)
 const tagNote = ref(false)
 const tagComplete = ref(false)
 
-function switchTagEntireList() {
+const selectedCountry = ref("Все страны")
+const selectedGender = ref("Без разницы")
+const selectedPosition= ref("Все должности")
+
+const checkboxTD = ref(false)
+const checkboxGPH = ref(false)
+const checkboxSMZ = ref(false)
+const checkboxCandidate = ref(false)
+
+function displayList(searchText) {
+  // Reset display
+  filtered_list = ref(staff_list)
+
+  if (tagCritical.value || tagProblem.value || tagNote.value || tagComplete.value) {
+    if (!tagCritical.value) {
+      filtered_list.value = filtered_list.value.filter((staff) => staff.status.tag_id !== 0)
+    }
+    if (!tagProblem.value) {
+      filtered_list.value = filtered_list.value.filter((staff) => staff.status.tag_id !== 1)
+    }
+    if (!tagNote.value) {
+      filtered_list.value = filtered_list.value.filter((staff) => staff.status.tag_id !== 2)
+    }
+    if (!tagComplete.value) {
+      filtered_list.value = filtered_list.value.filter((staff) => staff.status.tag_id !== 3)
+    }
+  }
+
+  // FIXME: reactivity doesn't work instantly with functions below:
+
+  if (searchText) {
+    filtered_list.value = filtered_list.value.filter((staff) => staff.full_name.includes(searchText))
+  }
+
+  console.log("td: " + checkboxTD.value)
+  console.log("gph: " + checkboxGPH.value)
+  console.log("smz: " + checkboxSMZ.value)
+  console.log("Candidate: " + checkboxCandidate.value)
+
+  if (checkboxTD.value || checkboxGPH.value || checkboxSMZ.value || checkboxCandidate.value) {
+    if (!checkboxTD.value) {
+      filtered_list.value = filtered_list.value.filter((staff) => staff.type_contract_id !== 0)
+    }
+    if (!checkboxGPH.value) {
+      filtered_list.value = filtered_list.value.filter((staff) => staff.type_contract_id !== 1)
+    }
+    if (!checkboxSMZ.value) {
+      filtered_list.value = filtered_list.value.filter((staff) => staff.type_contract_id !== 2)
+    }
+    if (!checkboxCandidate.value) {
+      filtered_list.value = filtered_list.value.filter((staff) => staff.type_contract_id !== 3)
+    }
+  }
+}
+
+function switchTag(input) {
+  // Activate or deactivate clicked tag:
+  if (input === "critical") {
+    tagCritical.value = !tagCritical.value
+  } else if (input === "problem") {
+    tagProblem.value = !tagProblem.value
+  } else if (input === "note") {
+    tagNote.value = !tagNote.value
+  } else if (input === "complete") {
+    tagComplete.value = !tagComplete.value
+  }
+
+  // Apply filters:
+  displayList()
+}
+
+function switchAllTags() {
   // Reset active buttons:
   tagCritical.value = false
   tagProblem.value = false
   tagNote.value = false
   tagComplete.value = false
 
-  // Reset filter:
-  filtered_list.value = staff_list.slice(0, numberOfDisplayedTags)
+  // Apply filters:
+  displayList()
 }
 
-function switchTagCritical() {
-  tagCritical.value = !tagCritical.value
-
-  // FIXME: resets on showMoreTags
-  filtered_list.value = sliced_list.value.filter((staff) => staff.status.tag_id === 0)
+function showMoreItems() {
+  numberOfDisplayedItems += 4
+  sliced_list.value = staff_list.slice(0, numberOfDisplayedItems)
 }
 
+function resetFilter() {
+  selectedCountry.value = "Все страны"
+  selectedGender.value = "Без разницы"
+  selectedPosition.value = "Все должности"
 
-function showMoreTags()  {
-  numberOfDisplayedTags += 4
-  sliced_list.value = staff_list.slice(0, numberOfDisplayedTags)
+  checkboxTD.value = false
+  checkboxGPH.value = false
+  checkboxSMZ.value = false
+  checkboxCandidate.value = false
+
+  displayList()
 }
 
+/*
 function searchText($event) {
   if ($event.length === 0) {
     // Reset filter:
-    sliced_list.value = staff_list.slice(0, numberOfDisplayedTags)
+    sliced_list.value = staff_list.slice(0, numberOfDisplayedItems)
   } else {
     // Add filter:
-    // ...
+    displayList($event)
   }
 }
-
+*/
 </script>

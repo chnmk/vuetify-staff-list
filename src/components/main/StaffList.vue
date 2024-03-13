@@ -39,7 +39,7 @@
         Выполнено
       </v-btn>
     </div>
-    <StaffTag
+    <staffItem
       class="ma-2"
       v-for="staff in filtered_list"
       :full_name="staff.full_name"
@@ -61,15 +61,15 @@
       :tagComplete="tagComplete"
     />
     <div class="ma-2" v-if="staff_list.length != sliced_list.length">
-      <v-btn @click="$emit('showMoreTags')">
-        Show More
+      <v-btn @click="$emit('showMoreItems')">
+        Показать еще
       </v-btn>
     </div>
   </div>
 </template>
 
 <script setup>
-import StaffTag from './StaffTag.vue';
+import staffItem from './StaffItem.vue';
 
 const props = defineProps([
   'staff_list',
