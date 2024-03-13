@@ -410,6 +410,9 @@ let staff_list = [
 // =================
 // App logic:
 
+// Sort staff array on setup:
+staff_list.sort((a,b) => a.status.tag_id - b.status.tag_id)
+
 let numberOfDisplayedItems = 4
 let numberOfFilteredItems = staff_list.length
 
