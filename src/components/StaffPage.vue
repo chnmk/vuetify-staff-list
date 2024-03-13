@@ -1,12 +1,12 @@
 <template>
-  <v-container :fluid="true" class="bg-grey pa-4">
-    <v-row>
-      <v-col>
-        <div class="bg-white ma-8 pa-4">
+  <v-container :fluid="true" class="figma-bg-grey pa-4">
+    <v-row no-gutters class="ma-2">
+      <v-col cols="8">
+        <div class="bg-white ma-3">
           <StaffSearch
             @searchText="displayList($event)"
           />
-          <v-divider thickness="4" />
+          <v-divider thickness="2" />
           <StaffList
             :staff_list="staff_list"
             :filtered_list="filtered_list"
@@ -24,10 +24,10 @@
             />
         </div>
       </v-col>
-      <v-col>
-        <div class="bg-white ma-8 pa-4">
+      <v-col cols="4">
+        <div class="bg-white ma-3 rounded-lg">
           <NewStaff />
-          <v-divider thickness="4" />
+          <v-divider thickness="2" />
           <FilterSettings
             @filterCountry="selectedCountry = $event"
             @filterGender="selectedGender = $event"
@@ -89,19 +89,19 @@ const staff_tag = [
 const country = [
   {
     id: 0,
-    icon: '/src/assets/placeholder.svg',
+    icon: '/src/assets/ru.svg',
     title: "Россия",
     slug: "RU"
   },
   {
     id: 1,
-    icon: '/src/assets/placeholder.svg',
+    icon: '/src/assets/tj.svg',
     title: "Таджикистан",
     slug: "TJ"
   },
   {
     id: 2,
-    icon: '/src/assets/placeholder.svg',
+    icon: '/src/assets/uz.svg',
     title: "Узбекистан",
     slug: "UZB"
   },
@@ -487,3 +487,9 @@ function resetFilter() {
 }
 
 </script>
+
+<style scoped>
+.figma-bg-grey {
+  background-color: #F7F8F9;
+}
+</style>

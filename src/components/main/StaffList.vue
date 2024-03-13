@@ -1,40 +1,48 @@
 <template>
-  <div class="bg-white">
-    <h1 class="ma-2">
+  <div class="bg-white px-10 py-3">
+    <h1 class="ma-3 figma-h1">
       Список сотрудников
     </h1>
-    <div class="d-inline-block">
+    <div class="d-inline-block mb-3">
       <v-btn
-        class="d-inline-block text-grey-lighten-2 bg-grey rounded-xl pa-2 ma-2"
+        class="figma-tags figma-all-tags text-none d-inline-block text-white rounded-xl py-2 px-4 ma-2"
+        variant="tonal"
         @click="$emit('tagEntireList')"
       >
         Весь список
       </v-btn>
       <v-btn
-        class="d-inline-block bg-yellow rounded-xl pa-2 ma-2"
+        class="figma-tags text-none d-inline-block rounded-xl py-2 px-4 ma-2"
+        variant="outlined"
+        :ripple="false"
         @click="$emit('tagProblem')"
-        :class="tagProblem ? 'text-white' : 'text-orange'"
+        :class="tagProblem ? 'figma-problem--enabled' : 'figma-problem--disabled'"
       >
         Проблемные
       </v-btn>
       <v-btn
-        class="d-inline-block bg-red rounded-xl pa-2 ma-2"
+        class="figma-tags text-none d-inline-block text-none rounded-xl py-2 px-4 ma-2"
+        variant="outlined"
+        :ripple="false"
         @click="$emit('tagCritical')"
-        :class="tagCritical ? 'text-white' : 'text-red-darken-3'"
+        :class="tagCritical ? 'figma-critical--enabled' : 'figma-critical--disabled'"
       >
         Критические
       </v-btn>
       <v-btn
-        class="d-inline-block bg-blue-lighten-3 rounded-xl pa-2 ma-2"
+        class="figma-tags text-none d-inline-block text-none rounded-xl py-2 px-4 ma-2"
+        variant="outlined"
         @click="$emit('tagNote')"
-        :class="tagNote ? 'text-white' : 'text-blue'"
+        :class="tagNote ? 'figma-note--enabled' : 'figma-note--disabled'"
       >
         Есть замечания
       </v-btn>
       <v-btn
-        class="d-inline-block bg-green-lighten-3 rounded-xl pa-2 ma-2"
+        class="figma-tags text-none d-inline-block text-none rounded-xl py-2 px-4 ma-2"
+        variant="outlined"
+        :ripple="false"
         @click="$emit('tagComplete')"
-        :class="tagComplete ? 'text-white' : 'text-green'"
+        :class="tagComplete ? 'figma-complete--enabled' : 'figma-complete--disabled'"
       >
         Выполнено
       </v-btn>
@@ -60,9 +68,17 @@
       :tagNote="tagNote"
       :tagComplete="tagComplete"
     />
-    <div class="ma-2" v-if="filtered_list.length < numberOfFilteredItems">
-      <v-btn @click="$emit('showMoreItems')">
-        Показать еще
+    <div class="mt-6 mb-12 d-flex justify-center" v-if="filtered_list.length < numberOfFilteredItems">
+      <v-btn
+        @click="$emit('showMoreItems')"
+        variant="outlined"
+        class="figma-show-more text-none"
+        size="large"
+      >
+        <span class="button-content pr-2">
+          <img src="/src/assets/refresh.svg" width="32" height="16" alt="new" class="button-icon"/>
+          Показать еще
+        </span>
       </v-btn>
     </div>
   </div>
@@ -70,7 +86,6 @@
 
 <script setup>
 import staffItem from './StaffItem.vue';
-
 
 const props = defineProps([
   'staff_list',
@@ -82,3 +97,68 @@ const props = defineProps([
   'tagComplete'
 ])
 </script>
+
+<style scoped>
+.figma-h1 {
+  font-size: 26px;
+}
+
+.figma-tags {
+  font-size: 14px;
+  font-weight: 400;
+  background-color: #FFFDF1;
+}
+
+.figma-all-tags {
+  background-color: #B0BCC7;
+}
+
+.figma-problem--disabled {
+  color: #E2BD06;
+  background-color: #FFFDF1;
+}
+.figma-problem--enabled {
+  color: #FFFDF1;
+  background-color: #E2BD06;
+}
+
+.figma-critical--disabled {
+  color: #E52E2E;
+  background-color: #FFF8F8;
+}
+.figma-critical--enabled {
+  color: #FFF8F8;
+  background-color: #E52E2E;
+}
+
+.figma-note--disabled {
+  color: #00B6ED;
+  background-color: #F3FCFF;
+}
+.figma-note--enabled {
+  color: #F3FCFF;
+  background-color: #00B6ED;
+}
+
+.figma-complete--disabled {
+  color: #00AE5B;
+  background-color: #F2FFF9;
+}
+.figma-complete--enabled {
+  color: #F2FFF9;
+  background-color: #00AE5B;
+}
+
+.figma-show-more {
+  color: #2A358C;
+}
+
+.button-content {
+  line-height: 18px;
+  vertical-align: baseline;
+}
+
+.button-icon {
+  vertical-align: top;
+}
+</style>
