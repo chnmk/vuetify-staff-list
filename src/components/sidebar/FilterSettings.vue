@@ -41,24 +41,28 @@
           hide-details
           label="ТД"
           @update:model-value="$emit('checkboxTD')"
+          :model-value="checkboxTD"
         />
         <v-checkbox
           density="compact"
           hide-details
           label="ГПХ"
           @update:model-value="$emit('checkboxGPH')"
+          :model-value="checkboxGPH"
         />
         <v-checkbox
           density="compact"
           hide-details
           label="СМЗ"
           @update:model-value="$emit('checkboxSMZ')"
+          :model-value="checkboxSMZ"
         />
         <v-checkbox
           density="compact"
           hide-details
           label="Кандидат"
           @update:model-value="$emit('checkboxCandidate')"
+          :model-value="checkboxCandidate"
         />
       </div>
     </div>
@@ -73,3 +77,22 @@
     </div>
   </div>
 </template>
+
+<script setup>
+const props = defineProps([
+  'checkboxTD',
+  'checkboxGPH',
+  'checkboxSMZ',
+  'checkboxCandidate'
+])
+/*
+import { ref } from 'vue';
+
+// Create separate consts to avoid mutating props:
+const checkedTD = ref(false)
+
+function test1() {
+  console.log(checkedTD)
+}
+*/
+</script>

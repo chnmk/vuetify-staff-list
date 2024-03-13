@@ -35,6 +35,10 @@
             @checkboxGPH="checkboxGPH = !checkboxGPH"
             @checkboxSMZ="checkboxSMZ = !checkboxSMZ"
             @checkboxCandidate="checkboxCandidate = !checkboxCandidate"
+            :checkboxTD="checkboxTD"
+            :checkboxGPH="checkboxGPH"
+            :checkboxSMZ="checkboxSMZ"
+            :checkboxCandidate="checkboxCandidate"
             @applyFilter="displayList()"
             @resetFilter="resetFilter()"
           />
