@@ -5,7 +5,7 @@
         <div class="bg-white ma-8 pa-4">
           <StaffSearch />
           <v-divider thickness="4" />
-          <StaffList />
+          <StaffList :staff_list="staff_list" />
         </div>
       </v-col>
       <v-col>
@@ -24,4 +24,6 @@ import StaffSearch from './main/StaffSearch.vue';
 import StaffList from './main/StaffList.vue';
 import NewStaff from './sidebar/NewStaff.vue';
 import FilterSettings from './sidebar/FilterSettings.vue';
+
+const props = defineProps(['staff_list'])
 </script>

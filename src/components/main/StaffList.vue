@@ -21,10 +21,22 @@
         Button 5
       </v-btn >
     </div>
-    <StaffTag class="ma-2" />
-    <StaffTag class="ma-2" />
-    <StaffTag class="ma-2" />
-    <StaffTag class="ma-2" />
+    <StaffTag
+      class="ma-2"
+      v-for="staff in staff_list"
+      :full_name="staff.full_name"
+      :inn="staff.inn"
+      :type_contract_slug="staff.type_contract.slug"
+      :position_name="staff.position.name"
+      :country_icon="staff.country.icon"
+      :country_slug="staff.country.slug"
+      :address="staff.address"
+      :date_birth="staff.date_birth"
+      :age="staff.age"
+      :gender_title="staff.gender.title"
+      :status_description="staff.status.description"
+      :status_color="staff.status.tag.color"
+    />
     <div class="ma-2">
       <v-btn>
         Show More
@@ -35,4 +47,6 @@
 
 <script setup>
 import StaffTag from './StaffTag.vue';
+
+const props = defineProps(['staff_list'])
 </script>

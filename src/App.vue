@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <StaffPage />
+      <StaffPage :staff_list="staff_list" />
     </v-main>
   </v-app>
 </template>
@@ -40,19 +40,19 @@ const staff_tag = [
 const country = [
   {
     id: 0,
-    icon: './assets/placeholder.svg',
+    icon: '/src/assets/placeholder.svg',
     title: "Россия",
-    slug: "RUS"
+    slug: "RU"
   },
   {
     id: 1,
-    icon: './assets/placeholder.svg',
+    icon: '/src/assets/placeholder.svg',
     title: "Таджикистан",
-    slug: "TJK"
+    slug: "TJ"
   },
   {
     id: 2,
-    icon: './assets/placeholder.svg',
+    icon: '/src/assets/placeholder.svg',
     title: "Узбекистан",
     slug: "UZB"
   },
@@ -61,15 +61,15 @@ const country = [
 const position = [
   {
     id: 0,
-    name: "Промышленный альпинист"
+    name: "промышленный альпинист"
   },
   {
     id: 1,
-    name: "Токарь"
+    name: "токарь"
   },
   {
     id: 2,
-    name: "Пекарь"
+    name: "пекарь"
   },
 ]
 
@@ -113,8 +113,8 @@ const staff_list = [
   {
     full_name: "Константинопольский Константин Константинович",
     inn: "1234567890",
-    address: "г. Санкт-Петербург",
-    date_bitrh: "23.06.2001",
+    address: "Санкт-Петербург",
+    date_birth: "23.06.2001",
     age: 21,
     type_contract: type_contract[2],
     type_contract_id: type_contract[2].id,
@@ -125,16 +125,16 @@ const staff_list = [
     position: position[0],
     position_id: position[0].id,
     status: {
-      tag_id : staff_tag[0].id,
-      tag: staff_tag[0],
+      tag_id : staff_tag[1].id,
+      tag: staff_tag[1],
       description: "Истекают все документы"
     }
   },
   {
     full_name: "Иванов Иван Иванович",
     inn: "1234567890",
-    address: "г. Санкт-Петербург",
-    date_bitrh: "23.06.2001",
+    address: "Санкт-Петербург",
+    date_birth: "23.06.2001",
     age: 21,
     type_contract: type_contract[0],
     type_contract_id: type_contract[0].id,
@@ -145,16 +145,16 @@ const staff_list = [
     position: position[0],
     position_id: position[0].id,
     status: {
-      tag_id : staff_tag[1].id,
-      tag: staff_tag[1],
+      tag_id : staff_tag[0].id,
+      tag: staff_tag[0],
       description: "Истекает патент"
     }
   },
   {
     full_name: "Константинопольский Константин Константинович",
     inn: "1234567890",
-    address: "г. Санкт-Петербург",
-    date_bitrh: "23.06.2001",
+    address: "Санкт-Петербург",
+    date_birth: "23.06.2001",
     age: 21,
     type_contract: type_contract[2],
     type_contract_id: type_contract[2].id,
@@ -173,8 +173,8 @@ const staff_list = [
   {
     full_name: "Иванов Иван Иванович",
     inn: "1234567890",
-    address: "г. Санкт-Петербург",
-    date_bitrh: "23.06.2001",
+    address: "Санкт-Петербург",
+    date_birth: "23.06.2001",
     age: 21,
     type_contract: type_contract[0],
     type_contract_id: type_contract[0].id,
@@ -193,8 +193,8 @@ const staff_list = [
   {
     full_name: "Константинопольский Константин Константинович",
     inn: "1234567890",
-    address: "г. Санкт-Петербург",
-    date_bitrh: "23.06.2001",
+    address: "Санкт-Петербург",
+    date_birth: "23.06.2001",
     age: 21,
     type_contract: type_contract[2],
     type_contract_id: type_contract[2].id,
@@ -213,8 +213,8 @@ const staff_list = [
   {
     full_name: "Акапулько Снежана Ефимовна",
     inn: "1234567890",
-    address: "г. Москва",
-    date_bitrh: "01.01.2002",
+    address: "Москва",
+    date_birth: "01.01.2002",
     age: 24,
     type_contract: type_contract[3],
     type_contract_id: type_contract[3].id,
@@ -233,8 +233,8 @@ const staff_list = [
   {
     full_name: "Карамазов Пётр Иванович",
     inn: "1234567890",
-    address: "г. Москва",
-    date_bitrh: "01.01.1999",
+    address: "Москва",
+    date_birth: "01.01.1999",
     age: 25,
     type_contract: type_contract[0],
     type_contract_id: type_contract[0].id,
@@ -253,8 +253,8 @@ const staff_list = [
   {
     full_name: "Карамазов Михаил Михайлович",
     inn: "1234567890",
-    address: "г. Москва",
-    date_bitrh: "01.01.2000",
+    address: "Москва",
+    date_birth: "01.01.2000",
     age: 24,
     type_contract: type_contract[1],
     type_contract_id: type_contract[1].id,
@@ -273,8 +273,8 @@ const staff_list = [
   {
     full_name: "Карамазова Мария Михайловна",
     inn: "1234567890",
-    address: "г. Москва",
-    date_bitrh: "01.01.2001",
+    address: "Москва",
+    date_birth: "01.01.2001",
     age: 23,
     type_contract: type_contract[2],
     type_contract_id: type_contract[2].id,
@@ -293,8 +293,8 @@ const staff_list = [
   {
     full_name: "Акапулько Снежана Олеговна", // valid
     inn: "1234567890", // valid... Should be of certain length?
-    address: "г. Москва", // valid
-    date_bitrh: "01.01.2002",
+    address: "Москва", // valid
+    date_birth: "01.01.2002",
     age: 24,
     type_contract: type_contract[3], // filter by slug or whatever... valid
     type_contract_id: type_contract[3].id, // valid
