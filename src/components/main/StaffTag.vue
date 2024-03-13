@@ -1,5 +1,8 @@
 <template>
   <div class="bg-blue">
+    <!--    v-if="
+        !(status_tag_id === 0 && tagCritical === true)
+        "-->
     <div class="d-inline-block bg-red text-orange ma-2">
       <h1 class="d-inline ma-2">
         {{ full_name }}
@@ -45,6 +48,11 @@ const props = defineProps([
   'age',
   'gender_title',
   'status_description',
-  'status_color'
+  'status_color',
+  'status_tag_id',
+  'tagProblem',
+  'tagCritical',
+  'tagNote',
+  'tagComplete'
   ])
 </script>

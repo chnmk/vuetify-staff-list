@@ -9,9 +9,18 @@
           <v-divider thickness="4" />
           <StaffList
             :staff_list="staff_list"
-            :display_list="display_list"
-            :settings="settings"
+            :sliced_list="sliced_list"
+            :filtered_list="filtered_list"
             @showMoreTags="showMoreTags()"
+            @tagEntireList="switchTagEntireList()"
+            @tagProblem="tagProblem = !tagProblem"
+            @tagCritical="switchTagCritical()"
+            @tagNote="tagNote = !tagNote"
+            @tagComplete="tagComplete = !tagComplete"
+            :tagProblem="tagProblem"
+            :tagCritical="tagCritical"
+            :tagNote="tagNote"
+            :tagComplete="tagComplete"
             />
         </div>
       </v-col>
@@ -33,7 +42,7 @@ import StaffList from './main/StaffList.vue';
 import NewStaff from './sidebar/NewStaff.vue';
 import FilterSettings from './sidebar/FilterSettings.vue';
 
-const props = defineProps(['staff_list', 'display_list', 'settings'])
+const props = defineProps(['staff_list', 'sliced_list'])
 
 const staff_tag = [
   // id: 1 стоит раньше id: 0, т.к. в макете разный порядок в списке сотрудников и в тэгах над списком
@@ -340,23 +349,47 @@ let staff_list = [
 
 // =================
 
-let display_list = ref(staff_list.slice(0, 4))
+const sliced_list = ref(staff_list.slice(0, 4))
+const filtered_list = sliced_list
 
-let settings = {
-  numberOfDisplayedTags: 4,
+let numberOfDisplayedTags = 4
+
+const tagCritical = ref(false)
+const tagProblem = ref(false)
+const tagNote = ref(false)
+const tagComplete = ref(false)
+
+function switchTagEntireList() {
+  // Reset active buttons:
+  tagCritical.value = false
+  tagProblem.value = false
+  tagNote.value = false
+  tagComplete.value = false
+
+  // Reset filter:
+  filtered_list.value = staff_list.slice(0, numberOfDisplayedTags)
 }
 
+function switchTagCritical() {
+  tagCritical.value = !tagCritical.value
+
+  // FIXME: resets on showMoreTags
+  filtered_list.value = sliced_list.value.filter((staff) => staff.status.tag_id === 0)
+}
+
+
 function showMoreTags()  {
-  settings.numberOfDisplayedTags += 4
-  display_list.value = staff_list.slice(0, settings.numberOfDisplayedTags)
+  numberOfDisplayedTags += 4
+  sliced_list.value = staff_list.slice(0, numberOfDisplayedTags)
 }
 
 function searchText($event) {
   if ($event.length === 0) {
-    // Reset filter
-    display_list.value = staff_list.slice(0, settings.numberOfDisplayedTags)
+    // Reset filter:
+    sliced_list.value = staff_list.slice(0, numberOfDisplayedTags)
   } else {
-    // Add filter
+    // Add filter:
+    // ...
   }
 }
 

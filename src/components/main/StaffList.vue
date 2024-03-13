@@ -1,29 +1,47 @@
 <template>
   <div class="bg-white">
     <h1 class="ma-2">
-      List
+      Список сотрудников
     </h1>
     <div class="d-inline-block">
-      <!-- v-btn-toggle -->
-      <v-btn class="d-inline-block bg-grey rounded-xl pa-2 ma-2">
-        Button 1
+      <v-btn
+        class="d-inline-block text-grey-lighten-2 bg-grey rounded-xl pa-2 ma-2"
+        @click="$emit('tagEntireList')"
+      >
+        Весь список
       </v-btn>
-      <v-btn class="d-inline-block bg-yellow rounded-xl pa-2 ma-2">
-        Button 2
-      </v-btn >
-      <v-btn class="d-inline-block bg-red rounded-xl pa-2 ma-2">
-        Button 3
-      </v-btn >
-      <v-btn class="d-inline-block bg-blue rounded-xl pa-2 ma-2">
-        Button 4
-      </v-btn >
-      <v-btn class="d-inline-block bg-green rounded-xl pa-2 ma-2">
-        Button 5
-      </v-btn >
+      <v-btn
+        class="d-inline-block bg-yellow rounded-xl pa-2 ma-2"
+        @click="$emit('tagProblem')"
+        :class="tagProblem ? 'text-white' : 'text-orange'"
+      >
+        Проблемные
+      </v-btn>
+      <v-btn
+        class="d-inline-block bg-red rounded-xl pa-2 ma-2"
+        @click="$emit('tagCritical')"
+        :class="tagCritical ? 'text-white' : 'text-red-darken-3'"
+      >
+        Критические
+      </v-btn>
+      <v-btn
+        class="d-inline-block bg-blue-lighten-3 rounded-xl pa-2 ma-2"
+        @click="$emit('tagNote')"
+        :class="tagNote ? 'text-white' : 'text-blue'"
+      >
+        Есть замечания
+      </v-btn>
+      <v-btn
+        class="d-inline-block bg-green-lighten-3 rounded-xl pa-2 ma-2"
+        @click="$emit('tagComplete')"
+        :class="tagComplete ? 'text-white' : 'text-green'"
+      >
+        Выполнено
+      </v-btn>
     </div>
     <StaffTag
       class="ma-2"
-      v-for="staff in display_list"
+      v-for="staff in filtered_list"
       :full_name="staff.full_name"
       :inn="staff.inn"
       :type_contract_slug="staff.type_contract.slug"
@@ -36,8 +54,13 @@
       :gender_title="staff.gender.title"
       :status_description="staff.status.description"
       :status_color="staff.status.tag.color"
+      :status_tag_id="staff.status.tag_id"
+      :tagProblem="tagProblem"
+      :tagCritical="tagCritical"
+      :tagNote="tagNote"
+      :tagComplete="tagComplete"
     />
-    <div class="ma-2" v-if="staff_list.length != display_list.length">
+    <div class="ma-2" v-if="staff_list.length != sliced_list.length">
       <v-btn @click="$emit('showMoreTags')">
         Show More
       </v-btn>
@@ -48,6 +71,14 @@
 <script setup>
 import StaffTag from './StaffTag.vue';
 
-const props = defineProps(['staff_list', 'display_list', 'settings'])
+const props = defineProps([
+  'staff_list',
+  'sliced_list',
+  'filtered_list',
+  'tagProblem',
+  'tagCritical',
+  'tagNote',
+  'tagComplete'
+])
 
 </script>
