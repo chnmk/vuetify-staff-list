@@ -3,7 +3,9 @@
     <v-row>
       <v-col>
         <div class="bg-white ma-8 pa-4">
-          <StaffSearch />
+          <StaffSearch
+            @searchText="searchText($event)"
+          />
           <v-divider thickness="4" />
           <StaffList
             :staff_list="staff_list"
@@ -347,6 +349,15 @@ let settings = {
 function showMoreTags()  {
   settings.numberOfDisplayedTags += 4
   display_list.value = staff_list.slice(0, settings.numberOfDisplayedTags)
+}
+
+function searchText($event) {
+  if ($event.length === 0) {
+    // Reset filter
+    display_list.value = staff_list.slice(0, settings.numberOfDisplayedTags)
+  } else {
+    // Add filter
+  }
 }
 
 </script>
