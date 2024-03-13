@@ -26,7 +26,9 @@
       </v-col>
       <v-col :cols="colsSidebar">
         <div class="bg-white ma-3 rounded-lg">
-          <NewStaff />
+          <NewStaff
+            @openModal="modalOpen = true"
+          />
           <v-divider thickness="2" />
           <FilterSettings
             @filterCountry="selectedCountry = $event"
@@ -46,6 +48,23 @@
         </div>
       </v-col>
     </v-row>
+    <v-dialog
+      v-model="modalOpen"
+      width="auto"
+    >
+      <v-card
+        max-width="400"
+        title="Новый сотрудник"
+      >
+        <template v-slot:actions>
+          <v-btn
+            class="ms-auto"
+            text="Ok"
+            @click="modalOpen = false"
+          ></v-btn>
+        </template>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -430,6 +449,8 @@ const checkboxTD = ref(false)
 const checkboxGPH = ref(false)
 const checkboxSMZ = ref(false)
 const checkboxCandidate = ref(false)
+
+const modalOpen = ref(false)
 
 function displayList(searchText) {
   // Reset display
