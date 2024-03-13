@@ -49,6 +49,7 @@
     </div>
     <staffItem
       class="ma-2"
+      v-if="filtered_list.length"
       v-for="staff in filtered_list"
       :full_name="staff.full_name"
       :inn="staff.inn"
@@ -68,6 +69,9 @@
       :tagNote="tagNote"
       :tagComplete="tagComplete"
     />
+    <div v-else class="ml-3 mb-3">
+      Нет подходящих пользователей!
+    </div>
     <div class="mt-6 mb-12 d-flex justify-center" v-if="filtered_list.length < numberOfFilteredItems">
       <v-btn
         @click="$emit('showMoreItems')"
