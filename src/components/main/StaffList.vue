@@ -60,7 +60,7 @@
       :tagNote="tagNote"
       :tagComplete="tagComplete"
     />
-    <div class="ma-2" v-if="filtered_list.length > numberOfDisplayedItems">
+    <div class="ma-2" v-if="filtered_list.length < numberOfFilteredItems">
       <v-btn @click="$emit('showMoreItems')">
         Показать еще
       </v-btn>
@@ -71,10 +71,11 @@
 <script setup>
 import staffItem from './StaffItem.vue';
 
+
 const props = defineProps([
   'staff_list',
   'filtered_list',
-  'numberOfDisplayedItems',
+  'numberOfFilteredItems',
   'tagProblem',
   'tagCritical',
   'tagNote',

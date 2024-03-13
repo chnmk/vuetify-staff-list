@@ -10,6 +10,7 @@
           <StaffList
             :staff_list="staff_list"
             :filtered_list="filtered_list"
+            :numberOfFilteredItems="numberOfFilteredItems"
             @showMoreItems="showMoreItems()"
             @tagEntireList="switchAllTags()"
             @tagProblem="switchTag('problem')"
@@ -363,6 +364,7 @@ let staff_list = [
 // =================
 
 let numberOfDisplayedItems = 4
+let numberOfFilteredItems = staff_list.length
 
 const filtered_list = ref(staff_list.slice(0, numberOfDisplayedItems))
 
@@ -430,6 +432,9 @@ function displayList(searchText) {
       filtered_list.value = filtered_list.value.filter((staff) => staff.type_contract_id !== 3)
     }
   }
+
+  numberOfFilteredItems = filtered_list.value.length
+  filtered_list.value = filtered_list.value.slice(0, numberOfDisplayedItems)
 }
 
 function switchTag(input) {
@@ -443,6 +448,7 @@ function switchTag(input) {
   } else if (input === "complete") {
     tagComplete.value = !tagComplete.value
   }
+
 
   // Apply filters:
   displayList()
@@ -463,7 +469,8 @@ function showMoreItems() {
   numberOfDisplayedItems += 4
 
   // Apply filters:
-  displayList()}
+  displayList()
+}
 
 function resetFilter() {
   selectedCountry.value = "Все страны"
