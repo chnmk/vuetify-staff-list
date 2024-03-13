@@ -7,6 +7,7 @@
 </template>
 
 <script setup>
+import StaffPage from './components/StaffPage.vue';
 
 const staff_tag = [
   // id: 1 стоит раньше id: 0, т.к. в макете разный порядок в списке сотрудников и в тэгах над списком
@@ -310,5 +311,4 @@ const staff_list = [
     }
   },
 ]
-
 </script>

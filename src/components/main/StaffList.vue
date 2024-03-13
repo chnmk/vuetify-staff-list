@@ -32,3 +32,7 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import StaffTag from './StaffTag.vue';
+</script>

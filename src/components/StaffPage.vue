@@ -18,3 +18,10 @@
     </v-row>
   </v-container>
 </template>
+
+<script setup>
+import StaffSearch from './main/StaffSearch.vue';
+import StaffList from './main/StaffList.vue';
+import NewStaff from './sidebar/NewStaff.vue';
+import FilterSettings from './sidebar/FilterSettings.vue';
+</script>
