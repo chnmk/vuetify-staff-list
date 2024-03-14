@@ -53,13 +53,95 @@
       width="auto"
     >
       <v-card
-        max-width="400"
+        min-width="400"
+        max-width="600"
         title="Новый сотрудник"
       >
+        <v-form ref="form">
+          <v-text-field
+            label="Имя"
+            class="mt-6"
+            @input="event => newUser.full_name = event.target.value"
+            :rules="nameRules"
+            required
+          >
+          </v-text-field>
+          <v-text-field
+            label="Адрес"
+            @input="event => newUser.address = event.target.value"
+            :rules="addressRules"
+            required
+          >
+          </v-text-field>
+          <v-text-field
+            label="ИНН"
+            @input="event => newUser.inn = event.target.value"
+            :rules="innRules"
+            required
+          >
+          </v-text-field>
+          <v-text-field
+            label="Дата рождения (дд.мм.гггг)"
+            @input="event => newUser.date_birth = event.target.value"
+            :rules="birthRules"
+          >
+          </v-text-field>
+          <v-select
+            label="Договор"
+            :items="['ТД', 'ГПХ', 'СМЗ', 'Кандидат']"
+            @update:model-value="newUser.type_contract_temp = $event"
+            :rules="selectRules"
+            required
+          >
+          </v-select>
+          <v-select
+            label="Пол"
+            :items="['Мужской', 'Женский']"
+            @update:model-value="newUser.gender_temp = $event"
+            :rules="selectRules"
+            required
+          >
+          </v-select>
+          <v-select
+            label="Страна"
+            :items="['Россия', 'Таджикистан', 'Узбекистан']"
+            @update:model-value="newUser.country_temp = $event"
+            :rules="selectRules"
+            required
+          >
+          </v-select>
+          <v-select
+            label="Должность"
+            :items="['промышленный альпинист', 'токарь', 'пекарь']"
+            @update:model-value="newUser.position_temp = $event"
+            :rules="selectRules"
+            required
+          >
+          </v-select>
+          <v-select
+            label="Тэг сотрудника"
+            :items="['Проблемные', 'Критические', 'Есть замечания', 'Выполнено']"
+            @update:model-value="newUser.status.tag_temp = $event"
+            :rules="selectRules"
+            required
+          >
+          </v-select>
+          <v-text-field
+            label="Описание статуса"
+            @input="event => newUser.status.description = event.target.value"
+            :rules="statusRules"
+            required
+          >
+          </v-text-field>
+        </v-form>
         <template v-slot:actions>
           <v-btn
+            text="Добавить"
+            @click="validate"
+          ></v-btn>
+          <v-btn
             class="ms-auto"
-            text="Ok"
+            text="Отмена"
             @click="modalOpen = false"
           ></v-btn>
         </template>
@@ -152,19 +234,19 @@ const staff_tag = [
 const country = [
   {
     id: 0,
-    icon: '/src/assets/ru.svg',
+    icon: '/vuetify-staff-list/src/assets/ru.svg',
     title: "Россия",
     slug: "RU"
   },
   {
     id: 1,
-    icon: '/src/assets/tj.svg',
+    icon: '/vuetify-staff-list/src/assets/tj.svg',
     title: "Таджикистан",
     slug: "TJ"
   },
   {
     id: 2,
-    icon: '/src/assets/uz.svg',
+    icon: '/vuetify-staff-list/src/assets/uz.svg',
     title: "Узбекистан",
     slug: "UZB"
   },
@@ -558,6 +640,137 @@ function resetFilter() {
   checkboxCandidate.value = false
 
   // Apply filters:
+  displayList()
+}
+
+// =================
+// Modal window logic:
+
+const nameRules = [
+  value => {
+    if (value) return true
+    return 'Необходимо ввести имя.'
+  },
+  value => {
+    if (value?.length > 5) return true
+    return 'Имя должно быть длиннее 5 символов.'
+  },
+]
+
+const addressRules = [
+  value => {
+    if (value) return true
+    return 'Необходимо ввести адрес.'
+  },
+  value => {
+    if (value?.length > 5) return true
+    return 'Адрес должен быть длиннее 5 символов.'
+  },
+]
+
+const innRules = [
+  value => {
+    if (value) return true
+    return 'Необходимо ввести адрес.'
+  },
+  value => {
+    if (value?.length === 10) return true
+    return 'ИНН должен состоять из 10 знаков.'
+  },
+  value => {
+    if (value?.match(/^\d+$/)) return true
+    return 'ИНН может состоять только из цифр.'
+  },
+]
+
+const birthRules = [
+  value => {
+    if (value?.match(/^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/g)) return true
+    return 'Дата должна быть в формате дд.мм.гггг.'
+  },
+]
+
+const statusRules = [
+  value => {
+    if (value) return true
+    return 'Необходимо ввести описание статуса.'
+  },
+  value => {
+    if (value?.length > 5) return true
+    return 'Описание должно быть длиннее 5 символов.'
+  },
+]
+
+const selectRules = [
+  value => {
+    if (value) return true
+    return 'Необходимо выбрать значение.'
+  }
+]
+
+const form = ref()
+
+async function validate () {
+  const { valid } = await form.value.validate()
+  if (valid) modalSubmit()
+}
+
+let newUser = {
+  full_name: "aba",
+  inn: "111",
+  address: "here",
+  date_birth: "0",
+  age: 0,
+  type_contract: type_contract[0],
+  type_contract_id: type_contract[0].id,
+  type_contract_temp: "ТД",
+  gender: gender[0],
+  gender_id: gender[0].id,
+  gender_temp: "Мужской",
+  country: country[0],
+  country_id: country[0].id,
+  country_temp: "Россия",
+  position: position[0],
+  position_id: position[0].id,
+  position_temp: "промышленный альпинист",
+  status: {
+    tag_id : staff_tag[0].id,
+    tag: staff_tag[0],
+    tag_temp: "Проблемные",
+    description: "yep"
+  }
+}
+
+function modalSubmit() {
+  const addedUser = structuredClone(newUser)
+  // Close the window:
+  modalOpen.value = false
+
+  // Set proper values:
+  addedUser.type_contract = type_contract.find((a) => a.slug === addedUser.type_contract_temp)
+  addedUser.type_contract_id = addedUser.type_contract.id
+  addedUser.gender = gender.find((a) => a.title === addedUser.gender_temp)
+  addedUser.gender_id = addedUser.gender.id
+  addedUser.country = country.find((a) => a.title === addedUser.country_temp)
+  addedUser.country_id = addedUser.country.id
+  addedUser.position = position.find((a) => a.name === addedUser.position_temp)
+  addedUser.position = addedUser.position.id
+  addedUser.status.tag = staff_tag.find((a) => a.title === addedUser.status.tag_temp)
+  addedUser.status.tag_id = addedUser.status.tag.id
+
+  const bd = addedUser.date_birth
+  const converted_bd = Math.floor((new Date() - new Date(bd).getTime()) / (365.25 * 24 * 60 * 60 * 1000))
+  addedUser.age = converted_bd
+
+  // Delete temp values:
+  delete addedUser.type_contract_temp
+  delete addedUser.gender_temp
+  delete addedUser.country_temp
+  delete addedUser.position_temp
+  delete addedUser.status.tag_temp
+
+  // Add new user:
+  staff_list.unshift(addedUser)
   displayList()
 }
 
