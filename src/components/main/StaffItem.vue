@@ -16,7 +16,10 @@
     </div>
     <div class="mx-3 mt-1 mb-2 pa-2 figma-text">
       <span class="info-line">
-        <img :src="country_icon" width="32" height="16" alt="flag" class="flag mr-1"/>
+        <!-- Temporary fix for GitHub deployment: -->
+        <img v-if="country_slug==='TJ'" src="/src/assets/tj.svg" width="32" height="16" alt="flag" class="flag mr-1"/>
+        <img v-if="country_slug==='RU'" src="/src/assets/ru.svg" width="32" height="16" alt="flag" class="flag mr-1"/>
+        <img v-if="country_slug==='UZB'" src="/src/assets/uz.svg" width="32" height="16" alt="flag" class="flag mr-1"/>
         {{ country_slug }}
         <span class="figma-vert-div mx-2 pl-3">г. {{ address }}</span>
         <span class="figma-vert-div mx-2 pl-3">Дата рождения: {{ date_birth }}</span>

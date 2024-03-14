@@ -234,19 +234,19 @@ const staff_tag = [
 const country = [
   {
     id: 0,
-    icon: '/vuetify-staff-list/src/assets/ru.svg',
+    icon: '/src/assets/ru.svg',
     title: "Россия",
     slug: "RU"
   },
   {
     id: 1,
-    icon: '/vuetify-staff-list/src/assets/tj.svg',
+    icon: '/src/assets/tj.svg',
     title: "Таджикистан",
     slug: "TJ"
   },
   {
     id: 2,
-    icon: '/vuetify-staff-list/src/assets/uz.svg',
+    icon: '/src/assets/uz.svg',
     title: "Узбекистан",
     slug: "UZB"
   },
