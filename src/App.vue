@@ -8,8 +8,8 @@
 
 <script setup>
 import StaffPage from './components/StaffPage.vue';
-import { useTestStore } from '@/stores/test'
+import { useTempStore } from '@/stores/temp'
 
-const store = useTestStore()
+const store = useTempStore()
 console.log(store.name)
 </script>

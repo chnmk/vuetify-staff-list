@@ -159,6 +159,9 @@ import FilterSettings from './sidebar/FilterSettings.vue';
 import { useDisplay } from "vuetify";
 import { computed } from "vue";
 
+import { useTempStore } from '@/stores/temp'
+const tempStore = useTempStore()
+
 // =================
 // Vuetify adaptivity:
 
@@ -513,10 +516,9 @@ let staff_list = [
 staff_list.sort((a,b) => a.status.tag_id - b.status.tag_id)
 
 // Set variables for staff list filtration:
-let numberOfDisplayedItems = 4
 let numberOfFilteredItems = staff_list.length
 
-const filtered_list = ref(staff_list.slice(0, numberOfDisplayedItems))
+const filtered_list = ref(staff_list.slice(0, tempStore.numberOfDisplayedItems))
 
 const tagCritical = ref(false)
 const tagProblem = ref(false)
@@ -591,7 +593,7 @@ function displayList(searchText) {
 
   // Create final filtered list:
   numberOfFilteredItems = filtered_list.value.length
-  filtered_list.value = filtered_list.value.slice(0, numberOfDisplayedItems)
+  filtered_list.value = filtered_list.value.slice(0, tempStore.numberOfDisplayedItems)
 }
 
 function switchTag(input) {
@@ -622,7 +624,7 @@ function switchAllTags() {
 }
 
 function showMoreItems() {
-  numberOfDisplayedItems += 4
+  tempStore.numberOfDisplayedItems += 4
 
   // Apply filters:
   displayList()
