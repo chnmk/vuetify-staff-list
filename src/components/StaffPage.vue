@@ -160,7 +160,10 @@ import { useDisplay } from "vuetify";
 import { computed } from "vue";
 
 import { useTempStore } from '@/stores/temp'
+import { useCategoriesStore } from '@/stores/categories'
 const tempStore = useTempStore()
+const categoriesStore = useCategoriesStore()
+console.log(categoriesStore)
 
 // =================
 // Vuetify adaptivity:
@@ -203,108 +206,6 @@ const colsMain = computed(() => {
   return undefined;
 });
 
-// =================
-// Setup data:
-
-const staff_tag = [
-  // id: 1 раньше id: 0, т.к. в макете разный порядок в списке сотрудников и в тэгах над списком
-  {
-    id: 1,
-    title: "Проблемные",
-    slug: "Проб",
-    color: "yellow",
-  },
-  {
-    id: 0,
-    title: "Критические",
-    slug: "Крит",
-    color: "red",
-  },
-  {
-    id: 2,
-    title: "Есть замечания",
-    slug: "Зам",
-    color: "blue",
-  },
-  {
-    id: 3,
-    title: "Выполнено",
-    slug: "Вып",
-    color: "green",
-  },
-]
-
-const country = [
-  {
-    id: 0,
-    icon: '/src/assets/ru.svg',
-    title: "Россия",
-    slug: "RU"
-  },
-  {
-    id: 1,
-    icon: '/src/assets/tj.svg',
-    title: "Таджикистан",
-    slug: "TJ"
-  },
-  {
-    id: 2,
-    icon: '/src/assets/uz.svg',
-    title: "Узбекистан",
-    slug: "UZB"
-  },
-]
-
-const position = [
-  {
-    id: 0,
-    name: "промышленный альпинист"
-  },
-  {
-    id: 1,
-    name: "токарь"
-  },
-  {
-    id: 2,
-    name: "пекарь"
-  },
-]
-
-const type_contract = [
-  {
-    id: 0,
-    title: "Трудовой договор",
-    slug: "ТД"
-  },
-  {
-    id: 1,
-    title: "Договор гражданско-правового характера",
-    slug: "ГПХ"
-  },
-  {
-    id: 2,
-    title: "Самозанятость",
-    slug: "СМЗ"
-  },
-  {
-    id: 3,
-    title: "Кандидат договор",
-    slug: "Кандидат"
-  },
-]
-
-const gender = [
-  {
-    id: 0,
-    title: "Мужской",
-    slug: "М"
-  },
-  {
-    id: 1,
-    title: "Женский",
-    slug: "Ж"
-  }
-]
 
 let staff_list = [
   {
@@ -313,17 +214,17 @@ let staff_list = [
     address: "Санкт-Петербург",
     date_birth: "23.06.2001",
     age: 21,
-    type_contract: type_contract[2],
-    type_contract_id: type_contract[2].id,
-    gender: gender[0],
-    gender_id: gender[0].id,
-    country: country[0],
-    country_id: country[0].id,
-    position: position[0],
-    position_id: position[0].id,
+    type_contract: categoriesStore.type_contract[2],
+    type_contract_id: categoriesStore.type_contract[2].id,
+    gender: categoriesStore.gender[0],
+    gender_id: categoriesStore.gender[0].id,
+    country: categoriesStore.country[0],
+    country_id: categoriesStore.country[0].id,
+    position: categoriesStore.position[0],
+    position_id: categoriesStore.position[0].id,
     status: {
-      tag_id : staff_tag[1].id,
-      tag: staff_tag[1],
+      tag_id : categoriesStore.staff_tag[1].id,
+      tag: categoriesStore.staff_tag[1],
       description: "Истекают все документы"
     }
   },
@@ -333,17 +234,17 @@ let staff_list = [
     address: "Санкт-Петербург",
     date_birth: "23.06.2001",
     age: 21,
-    type_contract: type_contract[0],
-    type_contract_id: type_contract[0].id,
-    gender: gender[0],
-    gender_id: gender[0].id,
-    country: country[1],
-    country_id: country[1].id,
-    position: position[0],
-    position_id: position[0].id,
+    type_contract: categoriesStore.type_contract[0],
+    type_contract_id: categoriesStore.type_contract[0].id,
+    gender: categoriesStore.gender[0],
+    gender_id: categoriesStore.gender[0].id,
+    country: categoriesStore.country[1],
+    country_id: categoriesStore.country[1].id,
+    position: categoriesStore.position[0],
+    position_id: categoriesStore.position[0].id,
     status: {
-      tag_id : staff_tag[0].id,
-      tag: staff_tag[0],
+      tag_id : categoriesStore.staff_tag[0].id,
+      tag: categoriesStore.staff_tag[0],
       description: "Истекает патент"
     }
   },
@@ -353,17 +254,17 @@ let staff_list = [
     address: "Санкт-Петербург",
     date_birth: "23.06.2001",
     age: 21,
-    type_contract: type_contract[2],
-    type_contract_id: type_contract[2].id,
-    gender: gender[0],
-    gender_id: gender[0].id,
-    country: country[0],
-    country_id: country[0].id,
-    position: position[0],
-    position_id: position[0].id,
+    type_contract: categoriesStore.type_contract[2],
+    type_contract_id: categoriesStore.type_contract[2].id,
+    gender: categoriesStore.gender[0],
+    gender_id: categoriesStore.gender[0].id,
+    country: categoriesStore.country[0],
+    country_id: categoriesStore.country[0].id,
+    position: categoriesStore.position[0],
+    position_id: categoriesStore.position[0].id,
     status: {
-      tag_id : staff_tag[0].id,
-      tag: staff_tag[0],
+      tag_id : categoriesStore.staff_tag[0].id,
+      tag: categoriesStore.staff_tag[0],
       description: "Истекает патент"
     }
   },
@@ -373,17 +274,17 @@ let staff_list = [
     address: "Санкт-Петербург",
     date_birth: "23.06.2001",
     age: 21,
-    type_contract: type_contract[0],
-    type_contract_id: type_contract[0].id,
-    gender: gender[0],
-    gender_id: gender[0].id,
-    country: country[1],
-    country_id: country[1].id,
-    position: position[0],
-    position_id: position[0].id,
+    type_contract: categoriesStore.type_contract[0],
+    type_contract_id: categoriesStore.type_contract[0].id,
+    gender: categoriesStore.gender[0],
+    gender_id: categoriesStore.gender[0].id,
+    country: categoriesStore.country[1],
+    country_id: categoriesStore.country[1].id,
+    position: categoriesStore.position[0],
+    position_id: categoriesStore.position[0].id,
     status: {
-      tag_id : staff_tag[2].id,
-      tag: staff_tag[2],
+      tag_id : categoriesStore.staff_tag[2].id,
+      tag: categoriesStore.staff_tag[2],
       description: "Пропустил медосмотр"
     }
   },
@@ -393,17 +294,17 @@ let staff_list = [
     address: "Санкт-Петербург",
     date_birth: "23.06.2001",
     age: 21,
-    type_contract: type_contract[2],
-    type_contract_id: type_contract[2].id,
-    gender: gender[0],
-    gender_id: gender[0].id,
-    country: country[0],
-    country_id: country[0].id,
-    position: position[0],
-    position_id: position[0].id,
+    type_contract: categoriesStore.type_contract[2],
+    type_contract_id: categoriesStore.type_contract[2].id,
+    gender: categoriesStore.gender[0],
+    gender_id: categoriesStore.gender[0].id,
+    country: categoriesStore.country[0],
+    country_id: categoriesStore.country[0].id,
+    position: categoriesStore.position[0],
+    position_id: categoriesStore.position[0].id,
     status: {
-      tag_id : staff_tag[3].id,
-      tag: staff_tag[3],
+      tag_id : categoriesStore.staff_tag[3].id,
+      tag: categoriesStore.staff_tag[3],
       description: "Прошел все процедуры"
     }
   },
@@ -413,17 +314,17 @@ let staff_list = [
     address: "Москва",
     date_birth: "01.01.2002",
     age: 24,
-    type_contract: type_contract[3],
-    type_contract_id: type_contract[3].id,
-    gender: gender[1],
-    gender_id: gender[1].id,
-    country: country[0],
-    country_id: country[0].id,
-    position: position[1],
-    position_id: position[1].id,
+    type_contract: categoriesStore.type_contract[3],
+    type_contract_id: categoriesStore.type_contract[3].id,
+    gender: categoriesStore.gender[1],
+    gender_id: categoriesStore.gender[1].id,
+    country: categoriesStore.country[0],
+    country_id: categoriesStore.country[0].id,
+    position: categoriesStore.position[1],
+    position_id: categoriesStore.position[1].id,
     status: {
-      tag_id : staff_tag[3].id,
-      tag: staff_tag[3],
+      tag_id : categoriesStore.staff_tag[3].id,
+      tag: categoriesStore.staff_tag[3],
       description: "Прошел все процедуры"
     }
   },
@@ -433,17 +334,17 @@ let staff_list = [
     address: "Москва",
     date_birth: "01.01.1999",
     age: 25,
-    type_contract: type_contract[0],
-    type_contract_id: type_contract[0].id,
-    gender: gender[0],
-    gender_id: gender[0].id,
-    country: country[0],
-    country_id: country[0].id,
-    position: position[0],
-    position_id: position[0].id,
+    type_contract: categoriesStore.type_contract[0],
+    type_contract_id: categoriesStore.type_contract[0].id,
+    gender: categoriesStore.gender[0],
+    gender_id: categoriesStore.gender[0].id,
+    country: categoriesStore.country[0],
+    country_id: categoriesStore.country[0].id,
+    position: categoriesStore.position[0],
+    position_id: categoriesStore.position[0].id,
     status: {
-      tag_id : staff_tag[0].id,
-      tag: staff_tag[0],
+      tag_id : categoriesStore.staff_tag[0].id,
+      tag: categoriesStore.staff_tag[0],
       description: "Истекают все документы"
     }
   },
@@ -453,17 +354,17 @@ let staff_list = [
     address: "Москва",
     date_birth: "01.01.2000",
     age: 24,
-    type_contract: type_contract[1],
-    type_contract_id: type_contract[1].id,
-    gender: gender[0],
-    gender_id: gender[0].id,
-    country: country[1],
-    country_id: country[1].id,
-    position: position[1],
-    position_id: position[1].id,
+    type_contract: categoriesStore.type_contract[1],
+    type_contract_id: categoriesStore.type_contract[1].id,
+    gender: categoriesStore.gender[0],
+    gender_id: categoriesStore.gender[0].id,
+    country: categoriesStore.country[1],
+    country_id: categoriesStore.country[1].id,
+    position: categoriesStore.position[1],
+    position_id: categoriesStore.position[1].id,
     status: {
-      tag_id : staff_tag[1].id,
-      tag: staff_tag[1],
+      tag_id : categoriesStore.staff_tag[1].id,
+      tag: categoriesStore.staff_tag[1],
       description: "Истекает патент"
     }
   },
@@ -473,17 +374,17 @@ let staff_list = [
     address: "Москва",
     date_birth: "01.01.2001",
     age: 23,
-    type_contract: type_contract[2],
-    type_contract_id: type_contract[2].id,
-    gender: gender[1],
-    gender_id: gender[1].id,
-    country: country[2],
-    country_id: country[2].id,
-    position: position[2],
-    position_id: position[2].id,
+    type_contract: categoriesStore.type_contract[2],
+    type_contract_id: categoriesStore.type_contract[2].id,
+    gender: categoriesStore.gender[1],
+    gender_id: categoriesStore.gender[1].id,
+    country: categoriesStore.country[2],
+    country_id: categoriesStore.country[2].id,
+    position: categoriesStore.position[2],
+    position_id: categoriesStore.position[2].id,
     status: {
-      tag_id : staff_tag[2].id,
-      tag: staff_tag[2],
+      tag_id : categoriesStore.staff_tag[2].id,
+      tag: categoriesStore.staff_tag[2],
       description: "Пропустил медосмотр"
     }
   },
@@ -493,17 +394,17 @@ let staff_list = [
     address: "Москва", // valid
     date_birth: "01.01.2002",
     age: 24,
-    type_contract: type_contract[3], // valid
-    type_contract_id: type_contract[3].id, // valid
-    gender: gender[1], // valid
-    gender_id: gender[1].id, // valid
-    country: country[0], // valid
-    country_id: country[0].id, // valid
-    position: position[1], // valid
-    position_id: position[1].id, // valid
+    type_contract: categoriesStore.type_contract[3], // valid
+    type_contract_id: categoriesStore.type_contract[3].id, // valid
+    gender: categoriesStore.gender[1], // valid
+    gender_id: categoriesStore.gender[1].id, // valid
+    country: categoriesStore.country[0], // valid
+    country_id: categoriesStore.country[0].id, // valid
+    position: categoriesStore.position[1], // valid
+    position_id: categoriesStore.position[1].id, // valid
     status: { // valid
-      tag_id : staff_tag[3].id,
-      tag: staff_tag[3],
+      tag_id : categoriesStore.staff_tag[3].id,
+      tag: categoriesStore.staff_tag[3],
       description: "Прошел все процедуры"
     }
   },
@@ -723,21 +624,21 @@ let newUser = {
   address: "here",
   date_birth: "0",
   age: 0,
-  type_contract: type_contract[0],
-  type_contract_id: type_contract[0].id,
+  type_contract: categoriesStore.type_contract[0],
+  type_contract_id: categoriesStore.type_contract[0].id,
   type_contract_temp: "ТД",
-  gender: gender[0],
-  gender_id: gender[0].id,
+  gender: categoriesStore.gender[0],
+  gender_id: categoriesStore.gender[0].id,
   gender_temp: "Мужской",
-  country: country[0],
-  country_id: country[0].id,
+  country: categoriesStore.country[0],
+  country_id: categoriesStore.country[0].id,
   country_temp: "Россия",
-  position: position[0],
-  position_id: position[0].id,
+  position: categoriesStore.position[0],
+  position_id: categoriesStore.position[0].id,
   position_temp: "промышленный альпинист",
   status: {
-    tag_id : staff_tag[0].id,
-    tag: staff_tag[0],
+    tag_id : categoriesStore.staff_tag[0].id,
+    tag: categoriesStore.staff_tag[0],
     tag_temp: "Проблемные",
     description: "yep"
   }
@@ -749,15 +650,15 @@ function modalSubmit() {
   modalOpen.value = false
 
   // Set proper values:
-  addedUser.type_contract = type_contract.find((a) => a.slug === addedUser.type_contract_temp)
+  addedUser.type_contract = categoriesStore.type_contract.find((a) => a.slug === addedUser.type_contract_temp)
   addedUser.type_contract_id = addedUser.type_contract.id
-  addedUser.gender = gender.find((a) => a.title === addedUser.gender_temp)
+  addedUser.gender = categoriesStore.gender.find((a) => a.title === addedUser.gender_temp)
   addedUser.gender_id = addedUser.gender.id
-  addedUser.country = country.find((a) => a.title === addedUser.country_temp)
+  addedUser.country = categoriesStore.country.find((a) => a.title === addedUser.country_temp)
   addedUser.country_id = addedUser.country.id
-  addedUser.position = position.find((a) => a.name === addedUser.position_temp)
+  addedUser.position = categoriesStore.position.find((a) => a.name === addedUser.position_temp)
   addedUser.position = addedUser.position.id
-  addedUser.status.tag = staff_tag.find((a) => a.title === addedUser.status.tag_temp)
+  addedUser.status.tag = categoriesStore.staff_tag.find((a) => a.title === addedUser.status.tag_temp)
   addedUser.status.tag_id = addedUser.status.tag.id
 
   const bd = addedUser.date_birth
