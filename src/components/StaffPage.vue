@@ -62,35 +62,35 @@
             label="Имя"
             class="mt-6"
             @input="event => newUser.full_name = event.target.value"
-            :rules="nameRules"
+            :rules="modalStore.nameRules"
             required
           >
           </v-text-field>
           <v-text-field
             label="Адрес"
             @input="event => newUser.address = event.target.value"
-            :rules="addressRules"
+            :rules="modalStore.addressRules"
             required
           >
           </v-text-field>
           <v-text-field
             label="ИНН"
             @input="event => newUser.inn = event.target.value"
-            :rules="innRules"
+            :rules="modalStore.innRules"
             required
           >
           </v-text-field>
           <v-text-field
             label="Дата рождения (дд.мм.гггг)"
             @input="event => newUser.date_birth = event.target.value"
-            :rules="birthRules"
+            :rules="modalStore.birthRules"
           >
           </v-text-field>
           <v-select
             label="Договор"
             :items="['ТД', 'ГПХ', 'СМЗ', 'Кандидат']"
             @update:model-value="newUser.type_contract_temp = $event"
-            :rules="selectRules"
+            :rules="modalStore.selectRules"
             required
           >
           </v-select>
@@ -98,7 +98,7 @@
             label="Пол"
             :items="['Мужской', 'Женский']"
             @update:model-value="newUser.gender_temp = $event"
-            :rules="selectRules"
+            :rules="modalStore.selectRules"
             required
           >
           </v-select>
@@ -106,7 +106,7 @@
             label="Страна"
             :items="['Россия', 'Таджикистан', 'Узбекистан']"
             @update:model-value="newUser.country_temp = $event"
-            :rules="selectRules"
+            :rules="modalStore. selectRules"
             required
           >
           </v-select>
@@ -114,7 +114,7 @@
             label="Должность"
             :items="['промышленный альпинист', 'токарь', 'пекарь']"
             @update:model-value="newUser.position_temp = $event"
-            :rules="selectRules"
+            :rules="modalStore. selectRules"
             required
           >
           </v-select>
@@ -122,14 +122,14 @@
             label="Тэг сотрудника"
             :items="['Проблемные', 'Критические', 'Есть замечания', 'Выполнено']"
             @update:model-value="newUser.status.tag_temp = $event"
-            :rules="selectRules"
+            :rules="modalStore.selectRules"
             required
           >
           </v-select>
           <v-text-field
             label="Описание статуса"
             @input="event => newUser.status.description = event.target.value"
-            :rules="statusRules"
+            :rules="modalStore.statusRules"
             required
           >
           </v-text-field>
@@ -161,8 +161,10 @@ import { computed } from "vue";
 
 import { useTempStore } from '@/stores/temp'
 import { useCategoriesStore } from '@/stores/categories'
+import { useModalStore } from '@/stores/modal';
 const tempStore = useTempStore()
 const categoriesStore = useCategoriesStore()
+const modalStore = useModalStore()
 console.log(categoriesStore)
 
 // =================
@@ -548,68 +550,6 @@ function resetFilter() {
 
 // =================
 // Modal window logic:
-
-const nameRules = [
-  value => {
-    if (value) return true
-    return 'Необходимо ввести имя.'
-  },
-  value => {
-    if (value?.length > 5) return true
-    return 'Имя должно быть длиннее 5 символов.'
-  },
-]
-
-const addressRules = [
-  value => {
-    if (value) return true
-    return 'Необходимо ввести адрес.'
-  },
-  value => {
-    if (value?.length > 5) return true
-    return 'Адрес должен быть длиннее 5 символов.'
-  },
-]
-
-const innRules = [
-  value => {
-    if (value) return true
-    return 'Необходимо ввести адрес.'
-  },
-  value => {
-    if (value?.length === 10) return true
-    return 'ИНН должен состоять из 10 знаков.'
-  },
-  value => {
-    if (value?.match(/^\d+$/)) return true
-    return 'ИНН может состоять только из цифр.'
-  },
-]
-
-const birthRules = [
-  value => {
-    if (value?.match(/^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/g)) return true
-    return 'Дата должна быть в формате дд.мм.гггг.'
-  },
-]
-
-const statusRules = [
-  value => {
-    if (value) return true
-    return 'Необходимо ввести описание статуса.'
-  },
-  value => {
-    if (value?.length > 5) return true
-    return 'Описание должно быть длиннее 5 символов.'
-  },
-]
-
-const selectRules = [
-  value => {
-    if (value) return true
-    return 'Необходимо выбрать значение.'
-  }
-]
 
 const form = ref()
 
